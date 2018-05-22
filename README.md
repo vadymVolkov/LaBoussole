@@ -1,0 +1,2 @@
+# LaBoussole
+LaBoussole Magazine Bot

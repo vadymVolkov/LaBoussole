@@ -338,8 +338,6 @@ def update_journal_db():
             db.add_new_journal(vol, name, store)
 
 
-update_journal_db()
-
 
 def get_orders_from_google():
     # use creds to create a client to interact with the Google Drive API

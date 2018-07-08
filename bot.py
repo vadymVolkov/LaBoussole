@@ -290,3 +290,26 @@ def handle_text(message):
         keyboard.buy_journal_ua_step8_receive_date(message)
 
 
+# Remove webhook, it fails sometimes the set if there is a previous webhook
+bot.remove_webhook()
+
+# Set webhook
+bot.set_webhook(url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH,
+                certificate=open(WEBHOOK_SSL_CERT, 'r'))
+
+# Disable CherryPy requests log
+access_log = cherrypy.log.access_log
+for handler in tuple(access_log.handlers):
+    access_log.removeHandler(handler)
+
+# Start cherrypy server
+cherrypy.config.update({
+    'server.socket_host': WEBHOOK_LISTEN,
+    'server.socket_port': WEBHOOK_PORT,
+    'server.ssl_module': 'builtin',
+    'server.ssl_certificate': WEBHOOK_SSL_CERT,
+    'server.ssl_private_key': WEBHOOK_SSL_PRIV
+})
+
+cherrypy.quickstart(WebhookServer(), WEBHOOK_URL_PATH, {'/': {}})
+

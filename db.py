@@ -28,11 +28,8 @@ def add_new_user(user_id, user_telegram):
     conn = connection()
     cursor = conn.cursor()
     sql = "insert into users  (user_id, user_telegram) values (%s, %s)"
-    try:
-        cursor.execute(sql, (user_id, user_telegram,))
-        conn.commit()
-    except mysql.IntegrityError:
-        print('user_id already exist in DB')
+    cursor.execute(sql, (user_id, user_telegram,))
+    conn.commit()
     conn.close()
 
 

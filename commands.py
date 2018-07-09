@@ -378,7 +378,9 @@ def send_notification(bot):
         notify = notification[4]
         user_id = str(notification[2])
         user = db.get_user_byid(user_id)
+
         if not notify:
+
             if user[6] == 1:
                 db.set_notifications_sended(delivery_number)
                 bot.send_message(user_id, "Ваш заказ отправлен.\n"

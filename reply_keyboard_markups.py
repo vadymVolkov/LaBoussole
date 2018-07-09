@@ -44,7 +44,7 @@ class Keyboard:
         user_id = message.from_user.id
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         # get journals
-        journals = commands.get_journals_from_docks()
+        journals = commands.get_journals()
         for journal in journals:
             user_markup.row('vol: ' + str(journal[0]) + ' ' + str(journal[1]))
         # get basket

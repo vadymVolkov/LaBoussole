@@ -97,7 +97,7 @@ class Keyboard:
         user_markup.row('Да, заказать еще один номер')
         user_markup.row('Перейти к оформлению заказа')
         user_markup.row('Вернуться в главное меню')
-        self.bot.send_message(user_id, 'Хотели бы вы, заказать еще один номер?', reply_markup=user_markup)
+        self.bot.send_message(user_id, 'Хотели бы вы заказать еще один номер?', reply_markup=user_markup)
 
     def buy_journal_ru_step3(self, message):
         # get user id
@@ -111,7 +111,7 @@ class Keyboard:
             user_markup.row('Вернуться в главное меню')
             self.bot.send_message(user_id, 'Вы уже раньше оставляли свои данные:\n'
                                   + user_data +
-                                  'Хотели бы вы, их оставить?', reply_markup=user_markup)
+                                  'Хотели бы вы их оставить?', reply_markup=user_markup)
         # if user is new
         else:
             user_markup = telebot.types.ReplyKeyboardRemove()
@@ -231,7 +231,7 @@ class Keyboard:
                                 ' оплати его по следующим реквизитам - ' + card_number + '.\n'
                               + 'После этого нам понадобится время, чтобы обработать'
                                 ' ваш платёж (в среднем до 1 дня).'
-                                '\nПроцесс будет быстрее, если вы пришлете скриншот или фотографию квитанции '
+                                '\nПроцесс будет быстрее, если вы пришлете скриншот или фотографию квитанции, '
                                 'выбрав в главном меню пункт \'Подтвердить оплату\'.\n'
                               + 'Ваш заказ будет доставлен ориентировочно в течение 1-2 рабочих дней.\n'
                               + 'Удобно ли вам будет в это время его получить?',
@@ -335,7 +335,7 @@ class Keyboard:
         if basket:
             user_markup.row('Перейти до замовлення')
             user_markup.row('Очистити кошик')
-        if message.from_user.id == admin[0][1]:
+        if message.from_user.id == admin[1]:
             user_markup.row('/admin')
         self.bot.send_message(user_id, 'Ласкаво просимо,' + user_full_name + '!\n'
                               + basket +
@@ -374,7 +374,7 @@ class Keyboard:
             # add journal to order
             commands.add_order_to_basket(message, journal)
             self.bot.send_message(user_id, 'Супер, такий номер є на нашому складі. '
-                                           'Чи хочете ви, щоб ми його загорнули у подарункову упаковку '
+                                           'Чи хочете ви щоб ми його загорнули у подарункову упаковку '
                                            '(це буде коштувати +30 гривень)?',
                                   reply_markup=user_markup)
         # if journal not in store
@@ -387,7 +387,7 @@ class Keyboard:
                 user_markup.row('Перейти до оформлення замовлення')
             user_markup.row('Повернутися в головне меню')
             self.bot.send_message(user_id, 'На жаль, цей номер закінчився.\n'
-                                           'Чи хочете ви, замовити інший номер?',
+                                           'Чи хочете ви замовити інший номер?',
                                   reply_markup=user_markup)
 
     def buy_journal_ua_step2_extra_cover(self, message):
@@ -399,7 +399,7 @@ class Keyboard:
         user_markup.row('Так, замовити ще один номер')
         user_markup.row('Перейти до оформлення замовлення')
         user_markup.row('Повернутися в головне меню')
-        self.bot.send_message(user_id, 'Чи хочете ви, замовити ще один номер?', reply_markup=user_markup)
+        self.bot.send_message(user_id, 'Чи хочете ви замовити ще один номер?', reply_markup=user_markup)
 
     def buy_journal_ua_step3(self, message):
         # get user id
@@ -532,7 +532,7 @@ class Keyboard:
                               + 'Щоб ми могли якомога швидше відправити твій журнал,'
                                 ' оплати його за наступними реквізитами - ' + card_number + '.\n'
                               + 'Після цього нам знадобиться час, щоб обробити твій платіж (в середньому до 1 дня).'
-                                '\nПроцес буде швидшим, якщо ти відправиш скріншот або фотографію квитанції '
+                                '\nПроцес буде швидшим, якщо ти відправиш скріншот або фотографію квитанції, '
                                 'вибравши в головному меню пункт \'Підтвердити оплату\'\n.'
                               + 'Ваше замовлення буде доставлено орієнтовно протягом 1-2 робочих днів.\n'
                               + 'Чи зручно вам буде в цей час його отримати?',

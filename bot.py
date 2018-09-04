@@ -54,7 +54,7 @@ class WebhookServer(object):
 @bot.message_handler(commands=['start'])
 def handle_text(message):
     # get admin
-    admin = commands.get_admins(1)
+    admin = commands.check_user_id_for_admin_rights(message)
     # get User
     user = commands.get_user(message)
     if user:
@@ -75,8 +75,8 @@ def handle_text(message):
 @bot.message_handler(commands=['admin'])
 def handle_text(message):
     # get admin
-    admin = commands.get_admins(1)
-    if message.from_user.id == admin[0][1]:
+    admin = commands.check_user_id_for_admin_rights(message)
+    if message.from_user.id == admin[1]:
         keyboard.admin_commands(message, admin)
 
 
@@ -85,7 +85,7 @@ def handle_text(message):
     content_types=['text'])
 def handle_text(message):
     # get admin
-    admin = commands.get_admins(1)
+    admin = commands.check_user_id_for_admin_rights(message)
     # get User
     user = commands.get_user(message)
     user_lng = user[6]
@@ -104,7 +104,7 @@ def handle_text(message):
                      content_types=['text'])
 def handle_text(message):
     # get admin
-    admin = commands.get_admins(1)
+    admin = commands.check_user_id_for_admin_rights(message)
     lng = message.text
     if lng == 'Русский язык':
         commands.set_user_lng(message, 1)
@@ -182,10 +182,10 @@ def handle_text(message):
         keyboard.buy_journal_ua_step2(message)
 
 
-@bot.message_handler(func=lambda mess: "Да, хочу в праздничной упаковке" == mess.text
+@bot.message_handler(func=lambda mess: "Да, хочу в подарочной упаковке" == mess.text
                                        or "Нет, хочу обычную упаковку" == mess.text
-                                       or "Так, хочу в святковій обкладинці" == mess.text
-                                       or "Ні, хочу звичайну обкладинку" == mess.text,
+                                       or "Так, хочу в подарунковій упаковці" == mess.text
+                                       or "Ні, хочу звичайну упаковку" == mess.text,
                      content_types=['text'])
 def handle_text(message):
     # get User

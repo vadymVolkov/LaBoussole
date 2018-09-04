@@ -338,7 +338,6 @@ def update_journal_db():
             db.add_new_journal(vol, name, store)
 
 
-
 def get_orders_from_google():
     # use creds to create a client to interact with the Google Drive API
     scope = ['https://spreadsheets.google.com/feeds']
@@ -416,3 +415,12 @@ def get_journals_names_from_db():
         name = 'vol: ' + str(journal[0]) + ' ' + journal[1]
         journal_list.append(name)
     return journal_list
+
+
+def check_user_id_for_admin_rights(message):
+    user_id = message.from_user.id
+    admins = get_admins(1)
+    for admin in admins:
+        if str(admin[1]) == str(user_id):
+            return admin
+    return "not admin"

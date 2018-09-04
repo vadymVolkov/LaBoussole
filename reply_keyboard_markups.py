@@ -13,8 +13,8 @@ class Keyboard:
         user_id = message.from_user.id
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Русский язык', 'Українська мова')
-        self.bot.send_message(user_id, 'Добрый день, выберите пожалуйста язык бота.\n'
-                                       'Добрий день, оберіть будь ласка мову бота.', reply_markup=user_markup)
+        self.bot.send_message(user_id, 'Добрый день, выберите, пожалуйста, язык бота.\n'
+                                       'Добрий день, оберіть, будь ласка, мову бота.', reply_markup=user_markup)
 
     def main_menu_ru(self, message, user, admin):
         # get user id
@@ -33,9 +33,9 @@ class Keyboard:
         if basket:
             user_markup.row('Перейти к оформлению заказа')
             user_markup.row('Очистить корзину')
-        if message.from_user.id == admin[0][1]:
+        if message.from_user.id == admin[1]:
             user_markup.row('/admin')
-        self.bot.send_message(user_id, 'Добро пожаловать' + user_full_name + '!\n'
+        self.bot.send_message(user_id, 'Добро пожаловать,' + user_full_name + '!\n'
                               + basket +
                               'Что бы вы хотели сделать?', reply_markup=user_markup)
 
@@ -67,12 +67,12 @@ class Keyboard:
         if store > 0:
             # set keyboard
             user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
-            user_markup.row('Да, хочу в праздничной упаковке')
+            user_markup.row('Да, хочу в подарочной упаковке')
             user_markup.row('Нет, хочу обычную упаковку')
             # add journal to order
             commands.add_order_to_basket(message, journal)
             self.bot.send_message(user_id, 'Супер, такой номер есть на нашем складе. '
-                                           'Хочешь ли ты, чтобы мы его завернули в праздничную упаковку '
+                                           'Хотели бы вы, чтобы мы его завернули в подарочную упаковку '
                                            '(это будет стоить +30 гривен)?',
                                   reply_markup=user_markup)
         # if journal not in store
@@ -84,20 +84,20 @@ class Keyboard:
             if basket:
                 user_markup.row('Перейти к оформлению заказа')
             user_markup.row('Вернуться в главное меню')
-            self.bot.send_message(user_id, 'К сожалению этот номер закончился.\n'
-                                           'Хотите заказать другой номер?',
+            self.bot.send_message(user_id, 'К сожалению, этот номер закончился.\n'
+                                           'Хотели бы вы, заказать другой номер?',
                                   reply_markup=user_markup)
 
     def buy_journal_ru_step2_extra_cover(self, message):
         # get user id
         user_id = message.from_user.id
-        if message.text == 'Да, хочу в праздничной упаковке':
+        if message.text == 'Да, хочу в подарочной упаковке':
             commands.add_cover_to_basket(message)
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Да, заказать еще один номер')
         user_markup.row('Перейти к оформлению заказа')
         user_markup.row('Вернуться в главное меню')
-        self.bot.send_message(user_id, 'Хотите заказать еще один номер?', reply_markup=user_markup)
+        self.bot.send_message(user_id, 'Хотели бы вы, заказать еще один номер?', reply_markup=user_markup)
 
     def buy_journal_ru_step3(self, message):
         # get user id
@@ -111,7 +111,7 @@ class Keyboard:
             user_markup.row('Вернуться в главное меню')
             self.bot.send_message(user_id, 'Вы уже раньше оставляли свои данные:\n'
                                   + user_data +
-                                  'Хотите их оставить?', reply_markup=user_markup)
+                                  'Хотели бы вы, их оставить?', reply_markup=user_markup)
         # if user is new
         else:
             user_markup = telebot.types.ReplyKeyboardRemove()
@@ -145,7 +145,7 @@ class Keyboard:
         if check_telephone:
             commands.set_user_telephone(message, message.text)
             msg = self.bot.send_message(user_id,
-                                        'Теперь напишите, пожалуйста, свой email в формате labusole@gmail.com',
+                                        'Теперь напишите, пожалуйста, свой email в формате laboussole@gmail.com',
                                         reply_markup=user_markup)
             self.bot.register_next_step_handler(msg, self.buy_journal_ru_step4_email)
         else:
@@ -199,7 +199,7 @@ class Keyboard:
         # get user id
         user_id = message.from_user.id
         user_markup = telebot.types.ReplyKeyboardRemove()
-        msg = self.bot.send_message(user_id, 'Укажите пожелание или коментарий к своеиму заказу',
+        msg = self.bot.send_message(user_id, 'Укажите пожелание или комментарий к своему заказу',
                                     reply_markup=user_markup)
         self.bot.register_next_step_handler(msg, self.buy_journal_ru_step6_payment)
 
@@ -226,12 +226,12 @@ class Keyboard:
         user_markup.row('Нет, указать дату доставки')
         user_markup.row('Вернуться в главное меню')
         self.bot.send_message(user_id, 'Спасибо за заказ!\n'
-                              + 'Полная сумма твоего заказа = ' + price + ' гривен.\n'
+                              + 'Полная сумма вашего заказа = ' + price + ' гривен.\n'
                               + 'Чтобы мы могли как можно скорее отправить твой журнал,'
                                 ' оплати его по следующим реквизитам - ' + card_number + '.\n'
                               + 'После этого нам понадобится время, чтобы обработать'
-                                ' твой платёж (в среднем до 1 дня).'
-                                '\nПроцесс будет быстрее, если ты пришлёшь скриншот или фотографию квитанции '
+                                ' ваш платёж (в среднем до 1 дня).'
+                                '\nПроцесс будет быстрее, если вы пришлете скриншот или фотографию квитанции '
                                 'выбрав в главном меню пункт \'Подтвердить оплату\'.\n'
                               + 'Ваш заказ будет доставлен ориентировочно в течение 1-2 рабочих дней.\n'
                               + 'Удобно ли вам будет в это время его получить?',
@@ -249,7 +249,7 @@ class Keyboard:
         user_markup.row('Нет, указать дату доставки')
         user_markup.row('Вернуться в главное меню')
         self.bot.send_message(user_id, 'Спасибо за заказ!\n'
-                              + 'Полная сумма твоего заказа = ' + price + ' гривен.\n'
+                              + 'Полная сумма вашего заказа = ' + price + ' гривен.\n'
                               + 'Ваш заказ будет доставлен ориентировочно в течение 1-2 рабочих дней.\n'
                               + 'Удобно ли вам будет в это время его получить?', reply_markup=user_markup)
 
@@ -269,7 +269,7 @@ class Keyboard:
         commands.accept_basket(message)
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Вернуться в главное меню')
-        self.bot.send_message(user_id, 'Ваш заказ  подтвержден. \nСкоро с вами свяжеться наш менеджер.',
+        self.bot.send_message(user_id, 'Ваш заказ  подтвержден. \nСкоро с вами свяжется наш менеджер.',
                               reply_markup=user_markup)
         self.bot.send_message(admin[0][1],
                               'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
@@ -289,7 +289,7 @@ class Keyboard:
         commands.accept_basket(message)
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Вернуться в главное меню')
-        self.bot.send_message(user_id, 'Ваш заказ  подтвержден. \nСкоро с вами свяжеться наш менеджер.',
+        self.bot.send_message(user_id, 'Ваш заказ  подтвержден. \nСкоро с вами свяжется наш менеджер.',
                               reply_markup=user_markup)
         self.bot.send_message(admin[0][1],
                               'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
@@ -337,7 +337,7 @@ class Keyboard:
             user_markup.row('Очистити кошик')
         if message.from_user.id == admin[0][1]:
             user_markup.row('/admin')
-        self.bot.send_message(user_id, 'Ласкаво просимо' + user_full_name + '!\n'
+        self.bot.send_message(user_id, 'Ласкаво просимо,' + user_full_name + '!\n'
                               + basket +
                               'Що б ви хотіли зробити?', reply_markup=user_markup)
 
@@ -369,12 +369,12 @@ class Keyboard:
         if store > 0:
             # set keyboard
             user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
-            user_markup.row('Так, хочу в святковій обкладинці')
-            user_markup.row('Ні, хочу звичайну обкладинку')
+            user_markup.row('Так, хочу в подарунковій упаковці')
+            user_markup.row('Ні, хочу звичайну упаковку')
             # add journal to order
             commands.add_order_to_basket(message, journal)
             self.bot.send_message(user_id, 'Супер, такий номер є на нашому складі. '
-                                           'Чи хочеш ти, щоб ми його загорнули у святкову обкладинку '
+                                           'Чи хочете ви, щоб ми його загорнули у подарункову упаковку '
                                            '(це буде коштувати +30 гривень)?',
                                   reply_markup=user_markup)
         # if journal not in store
@@ -386,20 +386,20 @@ class Keyboard:
             if basket:
                 user_markup.row('Перейти до оформлення замовлення')
             user_markup.row('Повернутися в головне меню')
-            self.bot.send_message(user_id, 'На жаль цей номер закінчився.\n'
-                                           'Хочете замовити інший номер?',
+            self.bot.send_message(user_id, 'На жаль, цей номер закінчився.\n'
+                                           'Чи хочете ви, замовити інший номер?',
                                   reply_markup=user_markup)
 
     def buy_journal_ua_step2_extra_cover(self, message):
         # get user id
         user_id = message.from_user.id
-        if message.text == 'Так, хочу в святковій обкладинці':
+        if message.text == 'Так, хочу в подарунковій упаковці':
             commands.add_cover_to_basket(message)
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Так, замовити ще один номер')
         user_markup.row('Перейти до оформлення замовлення')
         user_markup.row('Повернутися в головне меню')
-        self.bot.send_message(user_id, 'Хочете замовити ще один номер?', reply_markup=user_markup)
+        self.bot.send_message(user_id, 'Чи хочете ви, замовити ще один номер?', reply_markup=user_markup)
 
     def buy_journal_ua_step3(self, message):
         # get user id
@@ -430,7 +430,7 @@ class Keyboard:
         if check_name:
             commands.set_user_name(message, message.text)
             msg = self.bot.send_message(user_id,
-                                        'Зараз напиши, будь ласка, свій телефон в форматі +380931234567',
+                                        'Зараз напиши, будь ласка, свій телефон у форматі +380931234567',
                                         reply_markup=user_markup)
             self.bot.register_next_step_handler(msg, self.buy_journal_ua_step4_telephone)
         else:
@@ -447,7 +447,7 @@ class Keyboard:
         if check_telephone:
             commands.set_user_telephone(message, message.text)
             msg = self.bot.send_message(user_id,
-                                        'Зараз напиши, будь ласка, свій email у форматі labusole@gmail.com',
+                                        'Зараз напиши, будь ласка, свій email у форматі laboussole@gmail.com',
                                         reply_markup=user_markup)
             self.bot.register_next_step_handler(msg, self.buy_journal_ua_step4_email)
         else:
@@ -465,8 +465,8 @@ class Keyboard:
             commands.set_user_email(message, message.text)
             msg = self.bot.send_message(user_id,
                                         'Зараз нам потрібно дізнатися, куди доставити журнал.\n'
-                                        'Напиши, будь ласка, свое місто і номер відділення Нової Пошти. '
-                                        'У форматі "Одеса, 1”.',
+                                        'Напиши, будь ласка, своє місто і номер відділення Нової Пошти. '
+                                        'у форматі "Одеса, 1”.',
                                         reply_markup=user_markup)
             self.bot.register_next_step_handler(msg, self.buy_journal_ua_step4_adress)
         else:
@@ -511,9 +511,9 @@ class Keyboard:
         commands.add_comment_to_basket(message, message.text)
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Банківська картка')
-        user_markup.row('Накладений платіж')
+        user_markup.row('Післяплата')
         user_markup.row('Повернутися в головне меню')
-        self.bot.send_message(user_id, 'Вибери зручний для себе спосіб оплати::', reply_markup=user_markup)
+        self.bot.send_message(user_id, 'Вибери зручний для себе спосіб оплати:', reply_markup=user_markup)
 
     def buy_journal_ua_step7_card(self, message):
         # get user id
@@ -527,12 +527,12 @@ class Keyboard:
         user_markup.row('Так, дата доставки підходить')
         user_markup.row('Ні, вказати дату доставки')
         user_markup.row('Повернутися в головне меню')
-        self.bot.send_message(user_id, 'Спасибі за замовлення!\n'
-                              + 'Повна сума твого замовлення = ' + price + ' гривен.\n'
+        self.bot.send_message(user_id, 'Дякую за замовлення!\n'
+                              + 'Повна сума твого замовлення = ' + price + ' гривень.\n'
                               + 'Щоб ми могли якомога швидше відправити твій журнал,'
                                 ' оплати його за наступними реквізитами - ' + card_number + '.\n'
                               + 'Після цього нам знадобиться час, щоб обробити твій платіж (в середньому до 1 дня).'
-                                '\nПроцес буде швидше, якщо ти відправиш скріншот або фотографію квитанції '
+                                '\nПроцес буде швидшим, якщо ти відправиш скріншот або фотографію квитанції '
                                 'вибравши в головному меню пункт \'Підтвердити оплату\'\n.'
                               + 'Ваше замовлення буде доставлено орієнтовно протягом 1-2 робочих днів.\n'
                               + 'Чи зручно вам буде в цей час його отримати?',
@@ -549,8 +549,8 @@ class Keyboard:
         user_markup.row('Так, дата доставки підходить')
         user_markup.row('Ні, вказати дату доставки')
         user_markup.row('Повернутися в головне меню')
-        self.bot.send_message(user_id, 'Спасибі за замовлення!\n'
-                              + 'Повна сума твого замовлення = ' + price + ' гривен.\n'
+        self.bot.send_message(user_id, 'Дякую за замовлення!\n'
+                              + 'Повна сума твого замовлення = ' + price + ' гривень.\n'
                               + 'Ваше замовлення буде доставлено орієнтовно протягом 1-2 робочих днів.\n'
                               + 'Чи зручно вам буде в цей час його отримати?', reply_markup=user_markup)
 
@@ -570,7 +570,7 @@ class Keyboard:
         commands.accept_basket(message)
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Повернутися в головне меню')
-        self.bot.send_message(user_id, 'Ваше замовлення підтверджено. \nСкоро з вами зв\'яжется наш менеджер.',
+        self.bot.send_message(user_id, 'Ваше замовлення підтверджено. \nСкоро з вами зв\'яжеться наш менеджер.',
                               reply_markup=user_markup)
         self.bot.send_message(admin[0][1],
                               'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
@@ -590,7 +590,7 @@ class Keyboard:
         commands.accept_basket(message)
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Повернутися в головне меню')
-        self.bot.send_message(user_id, 'Ваше замовлення підтверджено. \nСкоро з вами зв\'яжется наш менеджер.',
+        self.bot.send_message(user_id, 'Ваше замовлення підтверджено. \nСкоро з вами зв\'яжеться наш менеджер.',
                               reply_markup=user_markup)
         self.bot.send_message(admin[0][1],
                               'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
@@ -628,19 +628,19 @@ class Keyboard:
         user_markup.row('Отправить всем пользователям сообщение')
         user_markup.row('Отправить всем пользователям сообщение с интервалом в 1 минуту')
         user_markup.row('/start')
-        if user_id == admin[0][1]:
+        if user_id == admin[1]:
             msg = self.bot.send_message(user_id, 'Привет админ \n'
                                                  'Выбери команду:', reply_markup=user_markup)
             self.bot.register_next_step_handler(msg, self.admin_command_send)
 
     def admin_command_send(self, message):
         # get admin
-        admins = commands.get_admins(1)
+        admins = commands.check_user_id_for_admin_rights(message)
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('/admin')
         user_markup.row('/start')
         user_id = message.from_user.id
-        if user_id == admins[0][1]:
+        if user_id == admins[1]:
             if message.text == 'Обновить базу данных журналов':
                 try:
                     commands.update_journal_db()

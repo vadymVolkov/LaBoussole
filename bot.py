@@ -158,7 +158,7 @@ def handle_text(message):
 def handle_text(message):
     commands.clean_basket(message)
     # get admin
-    admin = commands.get_admins(1)
+    admin = commands.check_user_id_for_admin_rights(message)
     # get User
     user = commands.get_user(message)
     user_lng = user[6]

@@ -274,6 +274,9 @@ class Keyboard:
         self.bot.send_message(admin[0][1],
                               'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
                                   basket[6]))
+        self.bot.send_message(admin[1][1],
+                              'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
+                                  basket[6]))
 
     def buy_journal_ru_finish_another_date(self, message):
         # get admin
@@ -292,6 +295,9 @@ class Keyboard:
         self.bot.send_message(user_id, 'Ваш заказ  подтвержден. \nСкоро с вами свяжется наш менеджер.',
                               reply_markup=user_markup)
         self.bot.send_message(admin[0][1],
+                              'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
+                                  basket[6]))
+        self.bot.send_message(admin[1][1],
                               'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
                                   basket[6]))
 
@@ -575,6 +581,9 @@ class Keyboard:
         self.bot.send_message(admin[0][1],
                               'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
                                   basket[6]))
+        self.bot.send_message(admin[1][1],
+                              'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
+                                  basket[6]))
 
     def buy_journal_ua_finish_another_date(self, message):
         # get admin
@@ -593,6 +602,9 @@ class Keyboard:
         self.bot.send_message(user_id, 'Ваше замовлення підтверджено. \nСкоро з вами зв\'яжеться наш менеджер.',
                               reply_markup=user_markup)
         self.bot.send_message(admin[0][1],
+                              'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
+                                  basket[6]))
+        self.bot.send_message(admin[1][1],
                               'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
                                   basket[6]))
 
@@ -614,6 +626,10 @@ class Keyboard:
         photo_id = message.photo[2].file_id
         self.bot.send_photo(admin[0][1], photo_id)
         self.bot.send_message(admin[0][1],
+                              'Пользователь с ID ' + str(user_id) + ' прислал вам фотографию квитанции об оплате',
+                              reply_markup=user_markup)
+        self.bot.send_photo(admin[1][1], photo_id)
+        self.bot.send_message(admin[1][1],
                               'Пользователь с ID ' + str(user_id) + ' прислал вам фотографию квитанции об оплате',
                               reply_markup=user_markup)
         self.bot.send_message(user_id, 'Відмінно, ваша квитанція була отрпалена нашому менджер.\n'

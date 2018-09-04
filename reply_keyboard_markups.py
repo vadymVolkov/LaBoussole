@@ -72,7 +72,7 @@ class Keyboard:
             # add journal to order
             commands.add_order_to_basket(message, journal)
             self.bot.send_message(user_id, 'Супер, такой номер есть на нашем складе. '
-                                           'Хотели бы вы, чтобы мы его завернули в подарочную упаковку '
+                                           'Хотели бы вы чтобы мы его завернули в подарочную упаковку '
                                            '(это будет стоить +30 гривен)?',
                                   reply_markup=user_markup)
         # if journal not in store

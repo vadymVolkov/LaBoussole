@@ -513,7 +513,7 @@ class Keyboard:
         user_markup.row('Банківська картка')
         user_markup.row('Післяплата')
         user_markup.row('Повернутися в головне меню')
-        self.bot.send_message(user_id, 'Вибери зручний для себе спосіб оплати:', reply_markup=user_markup)
+        self.bot.send_message(user_id, 'Виберіть зручний для себе спосіб оплати:', reply_markup=user_markup)
 
     def buy_journal_ua_step7_card(self, message):
         # get user id

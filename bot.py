@@ -250,7 +250,7 @@ def handle_text(message):
         keyboard.buy_journal_ua_step7_card(message)
 
 
-@bot.message_handler(func=lambda mess: "Наложенный платёж" == mess.text or 'Накладений платіж' == mess.text,
+@bot.message_handler(func=lambda mess: "Наложенный платёж" == mess.text or 'Післяплата' == mess.text,
                      content_types=['text'])
 def handle_text(message):
     # get User

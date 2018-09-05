@@ -632,7 +632,7 @@ class Keyboard:
         self.bot.send_message(admin[1][1],
                               'Пользователь с ID ' + str(user_id) + ' прислал вам фотографию квитанции об оплате',
                               reply_markup=user_markup)
-        self.bot.send_message(user_id, 'Відмінно, ваша квитанція була отрпалена нашому менджер.\n'
+        self.bot.send_message(user_id, 'Чудово, ваша квитанція була отрпалена нашому менджер.\n'
                                        'Чекайте номера накладної', reply_markup=user_markup)
 
     def admin_commands(self, message, admin):

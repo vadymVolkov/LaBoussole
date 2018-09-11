@@ -269,8 +269,20 @@ class Keyboard:
         commands.accept_basket(message)
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Вернуться в главное меню')
-        self.bot.send_message(user_id, 'Ваш заказ  подтвержден. \nСкоро с вами свяжется наш менеджер.',
-                              reply_markup=user_markup)
+        if basket[5] == 'Банковская карта':
+            self.bot.send_message(user_id, 'Спасибо, ваш заказ принят.\n'
+                                           'Для отправки журнала ждем подтверждение об оплате в разделе '
+                                           'главного меню.\n'
+                                           'После этого мы отправим журнал и пришлем вам номер экспресс-накладной.\n'
+                                           'Если у вас остались вопросы, можете связаться с менеджером по роботе с '
+                                           'читателями —  0939330081 Анна.',
+                                  reply_markup=user_markup)
+        elif basket[5] == 'Наложенный платёж':
+            self.bot.send_message(user_id, 'Спасибо, ваш заказ принят.\n'
+                                           'Ожидайте номер экспресс-накладной Новой почты после отправки журнала.\n'
+                                           'Если у вас остались вопросы, можете связаться с менеджером по роботе с '
+                                           'читателями —  0939330081 Анна.',
+                                  reply_markup=user_markup)
         self.bot.send_message(admin[0][1],
                               'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
                                   basket[6]))
@@ -292,8 +304,20 @@ class Keyboard:
         commands.accept_basket(message)
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Вернуться в главное меню')
-        self.bot.send_message(user_id, 'Ваш заказ  подтвержден. \nСкоро с вами свяжется наш менеджер.',
-                              reply_markup=user_markup)
+        if basket[5] == 'Банковская карта':
+            self.bot.send_message(user_id, 'Спасибо, ваш заказ принят.\n'
+                                           'Для отправки журнала ждем подтверждение об оплате в разделе '
+                                           'главного меню.\n'
+                                           'После этого мы отправим журнал и пришлем вам номер экспресс-накладной.\n'
+                                           'Если у вас остались вопросы, можете связаться с менеджером по роботе с '
+                                           'читателями —  0939330081 Анна.',
+                                  reply_markup=user_markup)
+        elif basket[5] == 'Наложенный платёж':
+            self.bot.send_message(user_id, 'Спасибо, ваш заказ принят.\n'
+                                           'Ожидайте номер экспресс-накладной Новой почты после отправки журнала.\n'
+                                           'Если у вас остались вопросы, можете связаться с менеджером по роботе с '
+                                           'читателями —  0939330081 Анна.',
+                                  reply_markup=user_markup)
         self.bot.send_message(admin[0][1],
                               'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
                                   basket[6]))
@@ -305,7 +329,7 @@ class Keyboard:
         # get user id
         user_id = message.from_user.id
         hide_markup = telebot.types.ReplyKeyboardRemove()
-        msg = self.bot.send_message(user_id, "Отлично, можете отправить фото квитанции об оплате",
+        msg = self.bot.send_message(user_id, "Отлично! Можете отправить фото квитанции об оплате.",
                                     reply_markup=hide_markup)
         self.bot.register_next_step_handler(msg, self.process_ru_photo_receive)
 
@@ -321,8 +345,8 @@ class Keyboard:
         self.bot.send_message(admin[0][1],
                               'Пользователь с ID ' + str(user_id) + ' прислал вам фотографию квитанции об оплате',
                               reply_markup=user_markup)
-        self.bot.send_message(user_id, 'Отлично, ваша квитанция была отрпалена нашему менджеру.\n'
-                                       'Ожидайте номера накладной', reply_markup=user_markup)
+        self.bot.send_message(user_id, 'Спасибо, мы получили вашу квитанцию. '
+                                       'Ожидайте номер экспресс-накладной Новой почты.', reply_markup=user_markup)
 
     def main_menu_ua(self, message, user, admin):
         # get user id
@@ -576,8 +600,20 @@ class Keyboard:
         commands.accept_basket(message)
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Повернутися в головне меню')
-        self.bot.send_message(user_id, 'Ваше замовлення підтверджено. \nСкоро з вами зв\'яжеться наш менеджер.',
-                              reply_markup=user_markup)
+        if basket[5] == 'Банківська картка':
+            self.bot.send_message(user_id, 'Дякуємо, ваше замовлення прийнято.\n'
+                                           'Для відправки журналу чекаємо '
+                                           'на підтверждення оплати в розділі головного меню.\n'
+                                           'Після цього ми віправимо журнал і надішлемо вам номер експрес-накладної.\n'
+                                           'Якщо у вас залишились питання, можете зв\'язатися з менеджером '
+                                           'по роботі з читачами — 0939330081 Анна',
+                                  reply_markup=user_markup)
+        elif basket[5] == 'Післяплата':
+            self.bot.send_message(user_id, 'Дякуємо, ваше замовлення прийнято.\n'
+                                           'Чекайте на номер експрес-накладної Нової пошти після відправки журналу.\n'
+                                           'Якщо у вас залишились питання, можете зв\'язатися з менеджером '
+                                           'по роботі з читачами — 0939330081 Анна.',
+                                  reply_markup=user_markup)
         self.bot.send_message(admin[0][1],
                               'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
                                   basket[6]))
@@ -599,8 +635,20 @@ class Keyboard:
         commands.accept_basket(message)
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Повернутися в головне меню')
-        self.bot.send_message(user_id, 'Ваше замовлення підтверджено. \nСкоро з вами зв\'яжеться наш менеджер.',
-                              reply_markup=user_markup)
+        if basket[5] == 'Банківська картка':
+            self.bot.send_message(user_id, 'Дякуємо, ваше замовлення прийнято.\n'
+                                           'Для відправки журналу чекаємо '
+                                           'на підтверждення оплати в розділі головного меню.\n'
+                                           'Після цього ми віправимо журнал і надішлемо вам номер експрес-накладної.\n'
+                                           'Якщо у вас залишились питання, можете зв\'язатися з менеджером '
+                                           'по роботі з читачами — 0939330081 Анна',
+                                  reply_markup=user_markup)
+        elif basket[5] == 'Післяплата':
+            self.bot.send_message(user_id, 'Дякуємо, ваше замовлення прийнято.\n'
+                                           'Чекайте на номер експрес-накладної Нової пошти після відправки журналу.\n'
+                                           'Якщо у вас залишились питання, можете зв\'язатися з менеджером '
+                                           'по роботі з читачами — 0939330081 Анна.',
+                                  reply_markup=user_markup)
         self.bot.send_message(admin[0][1],
                               'Получен новый заказ от пользователя с ID ' + str(user[1]) + '. Номер заказа ' + str(
                                   basket[6]))
@@ -612,7 +660,7 @@ class Keyboard:
         # get user id
         user_id = message.from_user.id
         hide_markup = telebot.types.ReplyKeyboardRemove()
-        msg = self.bot.send_message(user_id, "Відмінно, можете відправити фото квитанції про сплату",
+        msg = self.bot.send_message(user_id, "Чудово! Можете відправити фото квитанціїї про сплату.",
                                     reply_markup=hide_markup)
         self.bot.register_next_step_handler(msg, self.process_ua_photo_receive)
 
@@ -632,8 +680,8 @@ class Keyboard:
         self.bot.send_message(admin[1][1],
                               'Пользователь с ID ' + str(user_id) + ' прислал вам фотографию квитанции об оплате',
                               reply_markup=user_markup)
-        self.bot.send_message(user_id, 'Чудово, ваша квитанція була отрпалена нашому менджер.\n'
-                                       'Чекайте номера накладної', reply_markup=user_markup)
+        self.bot.send_message(user_id, 'Дякуємо, ми отримали вашу квитанцію. '
+                                       'Очікуйте номер експрес-накладної Нової пошти.', reply_markup=user_markup)
 
     def admin_commands(self, message, admin):
         user_id = message.from_user.id
@@ -688,7 +736,6 @@ class Keyboard:
                                             ' вы хотите отправить всем пользователям с интервалом в 1 минуту',
                                             reply_markup=user_markup)
                 self.bot.register_next_step_handler(msg, self.send_message_all_users)
-
 
     def send_message_all_users(self, message):
         text = message.text

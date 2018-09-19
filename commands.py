@@ -349,6 +349,7 @@ def get_orders_from_google():
     result = result[1:]
     return result
 
+print(get_orders_from_google())
 
 def update_orders():
     orders = get_orders_from_google()

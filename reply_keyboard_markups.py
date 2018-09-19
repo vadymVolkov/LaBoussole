@@ -219,7 +219,8 @@ class Keyboard:
         # get basket
         basket = commands.get_basket(message)
         commands.add_payment_to_basket(message, message.text)
-        card_number = 'XXXX XXXX XXXX XXXX'
+        card_number = 'Номер карточки ПриватБанка для оплати: 4149 4391 0621 4137 ' \
+                      '\nВладелиц счета: Юдина Инна Сергеевна'
         price = str(basket[2])
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Да, дата доставки подходит')
@@ -228,7 +229,7 @@ class Keyboard:
         self.bot.send_message(user_id, 'Спасибо за заказ!\n'
                               + 'Полная сумма вашего заказа = ' + price + ' гривен.\n'
                               + 'Чтобы мы могли как можно скорее отправить ваш журнал,'
-                                ' оплатите его по следующим реквизитам - ' + card_number + '.\n'
+                                ' оплатите его по следующим реквизитам: \n ' + card_number + '.\n'
                               + 'После этого нам понадобится время, чтобы обработать'
                                 ' ваш платёж (в среднем до 1 дня).'
                                 '\nПроцесс будет быстрее, если вы пришлете скриншот или фотографию квитанции, '
@@ -553,7 +554,8 @@ class Keyboard:
         # get basket
         basket = commands.get_basket(message)
         commands.add_payment_to_basket(message, message.text)
-        card_number = 'XXXX XXXX XXXX XXXX'
+        card_number = 'Номер картки ПриватБанку для оплати: 4149 4391 0621 4137 ' \
+                      '\nВласник рахунку: Юдіна Інна Сергіївна'
         price = str(basket[2])
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Так, дата доставки підходить')
@@ -562,7 +564,7 @@ class Keyboard:
         self.bot.send_message(user_id, 'Дякую за замовлення!\n'
                               + 'Повна сума вашого замовлення = ' + price + ' гривень.\n'
                               + 'Щоб ми могли якомога швидше відправити ваш журнал,'
-                                ' оплатіть його за наступними реквізитами - ' + card_number + '.\n'
+                                ' оплатіть його за наступними реквізитами:\n' + card_number + '.\n'
                               + 'Після цього нам знадобиться час, щоб обробити ваш платіж (в середньому до 1 дня).'
                                 '\nПроцес буде швидшим, якщо ви відправите скріншот або фотографію квитанції, '
                                 'вибравши в головному меню пункт \'Підтвердити оплату.\'\n'

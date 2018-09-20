@@ -17,9 +17,11 @@ WEBHOOK_HOST = config.ip
 WEBHOOK_PORT = config.port  # 443, 80, 88 or 8443 (port need to be 'open')
 WEBHOOK_LISTEN = config.listen  # In some VPS you may need to put here the IP addr
 
-WEBHOOK_SSL_CERT = './ssl_cert//webhook_cert.pem'  # Path to the ssl certificate
-WEBHOOK_SSL_PRIV = './ssl_cert/webhook_pkey.pem'  # Path to the ssl private key
+#WEBHOOK_SSL_CERT = './ssl_cert/webhook_cert.pem'  # Path to the ssl certificate
+#WEBHOOK_SSL_PRIV = './ssl_cert/webhook_pkey.pem'  # Path to the ssl private key
 
+WEBHOOK_SSL_CERT = '/root/LaBoussole/ssl_cert/webhook_cert.pem'  # Path to the ssl certificate
+WEBHOOK_SSL_PRIV = '/root/LaBoussole/ssl_cert/webhook_pkey.pem'  # Path to the ssl private key
 # Quick'n'dirty SSL certificate generation:
 #
 # openssl genrsa -out webhook_pkey.pem 2048

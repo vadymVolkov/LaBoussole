@@ -21,7 +21,7 @@ class Keyboard:
         user_id = message.from_user.id
         user_full_name = ''
         if user[2]:
-            user_full_name = ' ' + user[2]
+            user_full_name = ', ' + user[2]
         # get Basket
         basket = commands.make_basket(message)
         if not basket:
@@ -35,7 +35,7 @@ class Keyboard:
             user_markup.row('Очистить корзину')
         if message.from_user.id == admin[1]:
             user_markup.row('/admin')
-        self.bot.send_message(user_id, 'Добро пожаловать,' + user_full_name + '!\n'
+        self.bot.send_message(user_id, 'Добро пожаловать' + user_full_name + '!\n'
                               + basket +
                               'Что бы вы хотели сделать?', reply_markup=user_markup)
 
@@ -116,7 +116,7 @@ class Keyboard:
         else:
             user_markup = telebot.types.ReplyKeyboardRemove()
             msg = self.bot.send_message(user_id, 'Теперь мы можем приступить к оформлению заказа.\n' +
-                                        'Напишите, пожалуйста, своё полное имя и фамилию',
+                                        'Напишите, пожалуйста, ваше полное имя и фамилию',
                                         reply_markup=user_markup)
             self.bot.register_next_step_handler(msg, self.buy_journal_ru_step4_name)
 
@@ -128,7 +128,7 @@ class Keyboard:
         if check_name:
             commands.set_user_name(message, message.text)
             msg = self.bot.send_message(user_id,
-                                        'Теперь напишите, пожалуйста, свой телефон в формате +380931234567',
+                                        'Теперь напишите, пожалуйста, ваш телефон в формате +380931234567',
                                         reply_markup=user_markup)
             self.bot.register_next_step_handler(msg, self.buy_journal_ru_step4_telephone)
         else:
@@ -145,7 +145,7 @@ class Keyboard:
         if check_telephone:
             commands.set_user_telephone(message, message.text)
             msg = self.bot.send_message(user_id,
-                                        'Теперь напишите, пожалуйста, свой email в формате laboussole@gmail.com',
+                                        'Теперь напишите, пожалуйста, ваш email в формате laboussole@gmail.com',
                                         reply_markup=user_markup)
             self.bot.register_next_step_handler(msg, self.buy_journal_ru_step4_email)
         else:
@@ -163,7 +163,7 @@ class Keyboard:
             commands.set_user_email(message, message.text)
             msg = self.bot.send_message(user_id,
                                         'Теперь нам нужно узнать, куда доставлять журнал.\n'
-                                        'Напишите, пожалуйста, свой Город и номер отделения Новой Почты. '
+                                        'Напишите, пожалуйста, ваш Город и номер отделения Новой Почты. '
                                         'В формате “Одесса, 1”',
                                         reply_markup=user_markup)
             self.bot.register_next_step_handler(msg, self.buy_journal_ru_step4_adress)
@@ -199,7 +199,7 @@ class Keyboard:
         # get user id
         user_id = message.from_user.id
         user_markup = telebot.types.ReplyKeyboardRemove()
-        msg = self.bot.send_message(user_id, 'Укажите пожелание или комментарий к своему заказу',
+        msg = self.bot.send_message(user_id, 'Укажите пожелание или комментарий к вашему заказу',
                                     reply_markup=user_markup)
         self.bot.register_next_step_handler(msg, self.buy_journal_ru_step6_payment)
 
@@ -449,7 +449,7 @@ class Keyboard:
         else:
             user_markup = telebot.types.ReplyKeyboardRemove()
             msg = self.bot.send_message(user_id, 'Зараз ми можемо розпочати  оформлення замовлення.\n' +
-                                        'Напиши, будь ласка, своє повне ім\'я та прізвище',
+                                        'Напиши, будь ласка, ваше повне ім\'я та прізвище',
                                         reply_markup=user_markup)
             self.bot.register_next_step_handler(msg, self.buy_journal_ua_step4_name)
 
@@ -461,7 +461,7 @@ class Keyboard:
         if check_name:
             commands.set_user_name(message, message.text)
             msg = self.bot.send_message(user_id,
-                                        'Зараз напиши, будь ласка, свій телефон у форматі +380931234567',
+                                        'Зараз напиши, будь ласка, ваш телефон у форматі +380931234567',
                                         reply_markup=user_markup)
             self.bot.register_next_step_handler(msg, self.buy_journal_ua_step4_telephone)
         else:
@@ -478,7 +478,7 @@ class Keyboard:
         if check_telephone:
             commands.set_user_telephone(message, message.text)
             msg = self.bot.send_message(user_id,
-                                        'Зараз напиши, будь ласка, свій email у форматі laboussole@gmail.com',
+                                        'Зараз напиши, будь ласка, ваш email у форматі laboussole@gmail.com',
                                         reply_markup=user_markup)
             self.bot.register_next_step_handler(msg, self.buy_journal_ua_step4_email)
         else:
@@ -496,7 +496,7 @@ class Keyboard:
             commands.set_user_email(message, message.text)
             msg = self.bot.send_message(user_id,
                                         'Зараз нам потрібно дізнатися, куди доставити журнал.\n'
-                                        'Напиши, будь ласка, своє місто і номер відділення Нової Пошти. '
+                                        'Напиши, будь ласка, ваше місто і номер відділення Нової Пошти. '
                                         'у форматі "Одеса, 1”.',
                                         reply_markup=user_markup)
             self.bot.register_next_step_handler(msg, self.buy_journal_ua_step4_adress)
@@ -533,7 +533,7 @@ class Keyboard:
         user_id = message.from_user.id
         user_markup = telebot.types.ReplyKeyboardRemove()
         msg = self.bot.send_message(user_id,
-                                    'Вкажіть побажання або коментар до свого замовлення. '
+                                    'Вкажіть побажання або коментар до вашого замовлення. '
                                     'Якщо у вас немає коментарів, напишіть смайлик.',
                                     reply_markup=user_markup)
         self.bot.register_next_step_handler(msg, self.buy_journal_ua_step6_payment)

@@ -252,7 +252,7 @@ def check_telephone(telephone):
 
 
 def check_email(email):
-    result = re.fullmatch('(^|\s)[-a-z0-9_.]+@([-a-z0-9]+\.)+[a-z]{2,6}(\s|$)', email)
+    result = re.fullmatch('(^|\s)[-a-zA-Z0-9_.]+@([-a-z0-9]+\.)+[a-z]{2,6}(\s|$)', email)
 
     if result:
         return True

@@ -198,7 +198,9 @@ class Keyboard:
     def buy_journal_ru_step5_comments(self, message):
         # get user id
         user_id = message.from_user.id
-        user_markup = telebot.types.ReplyKeyboardRemove()
+        #user_markup = telebot.types.ReplyKeyboardRemove()
+        user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
+        user_markup.row('Нет коментариев')
         msg = self.bot.send_message(user_id, 'Укажите пожелание или комментарий к вашему заказу',
                                     reply_markup=user_markup)
         self.bot.register_next_step_handler(msg, self.buy_journal_ru_step6_payment)
@@ -531,10 +533,11 @@ class Keyboard:
     def buy_journal_ua_step5_comments(self, message):
         # get user id
         user_id = message.from_user.id
-        user_markup = telebot.types.ReplyKeyboardRemove()
+        #user_markup = telebot.types.ReplyKeyboardRemove()
+        user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
+        user_markup.row('Немає коментарів')
         msg = self.bot.send_message(user_id,
-                                    'Вкажіть побажання або коментар до вашого замовлення. '
-                                    'Якщо у вас немає коментарів, напишіть смайлик.',
+                                    'Вкажіть побажання або коментар до вашого замовлення.',
                                     reply_markup=user_markup)
         self.bot.register_next_step_handler(msg, self.buy_journal_ua_step6_payment)
 

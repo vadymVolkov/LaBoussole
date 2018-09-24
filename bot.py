@@ -17,11 +17,11 @@ WEBHOOK_HOST = config.ip
 WEBHOOK_PORT = config.port  # 443, 80, 88 or 8443 (port need to be 'open')
 WEBHOOK_LISTEN = config.listen  # In some VPS you may need to put here the IP addr
 
-#WEBHOOK_SSL_CERT = './ssl_cert/webhook_cert.pem'  # Path to the ssl certificate
-#WEBHOOK_SSL_PRIV = './ssl_cert/webhook_pkey.pem'  # Path to the ssl private key
+WEBHOOK_SSL_CERT = './ssl_cert/webhook_cert.pem'  # Path to the ssl certificate
+WEBHOOK_SSL_PRIV = './ssl_cert/webhook_pkey.pem'  # Path to the ssl private key
 
-WEBHOOK_SSL_CERT = '/root/LaBoussole/ssl_cert/webhook_cert.pem'  # Path to the ssl certificate
-WEBHOOK_SSL_PRIV = '/root/LaBoussole/ssl_cert/webhook_pkey.pem'  # Path to the ssl private key
+#WEBHOOK_SSL_CERT = '/root/LaBoussole/ssl_cert/webhook_cert.pem'  # Path to the ssl certificate
+#WEBHOOK_SSL_PRIV = '/root/LaBoussole/ssl_cert/webhook_pkey.pem'  # Path to the ssl private key
 # Quick'n'dirty SSL certificate generation:
 #
 # openssl genrsa -out webhook_pkey.pem 2048
@@ -290,6 +290,25 @@ def handle_text(message):
         keyboard.buy_journal_ru_step8_receive_date(message)
     elif user_lng == 2:
         keyboard.buy_journal_ua_step8_receive_date(message)
+
+@bot.message_handler(
+    func=lambda mess: "Оставить отзыв о работе бота" == mess.text or "Залишити відгук про роботу бота" == mess.text,
+    content_types=['text'])
+def handle_text(message):
+    # get admin
+    admin = commands.check_user_id_for_admin_rights(message)
+    # get User
+    user = commands.get_user(message)
+    user_lng = user[6]
+    # if lng not selected
+    if user_lng == 0:
+        keyboard.select_lng(message)
+    # if lng ru
+    elif user_lng == 1:
+        keyboard.send_feedback_ru_step1(message)
+    # if lng ua
+    elif user_lng == 2:
+        keyboard.send_feedback_ua_step1(message)
 
 
 # Remove webhook, it fails sometimes the set if there is a previous webhook

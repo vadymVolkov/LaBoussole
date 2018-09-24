@@ -33,6 +33,7 @@ class Keyboard:
         if basket:
             user_markup.row('Перейти к оформлению заказа')
             user_markup.row('Очистить корзину')
+        user_markup.row('Оставить отзыв о работе бота')
         if message.from_user.id == admin[1]:
             user_markup.row('/admin')
         self.bot.send_message(user_id, 'Добро пожаловать' + user_full_name + '!\n'
@@ -198,7 +199,7 @@ class Keyboard:
     def buy_journal_ru_step5_comments(self, message):
         # get user id
         user_id = message.from_user.id
-        #user_markup = telebot.types.ReplyKeyboardRemove()
+        # user_markup = telebot.types.ReplyKeyboardRemove()
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Нет коментариев')
         msg = self.bot.send_message(user_id, 'Укажите пожелание или комментарий к вашему заказу',
@@ -368,6 +369,7 @@ class Keyboard:
         if basket:
             user_markup.row('Перейти до замовлення')
             user_markup.row('Очистити кошик')
+        user_markup.row('Залишити відгук про роботу бота')
         if message.from_user.id == admin[1]:
             user_markup.row('/admin')
         self.bot.send_message(user_id, 'Ласкаво просимо,' + user_full_name + '!\n'
@@ -533,7 +535,7 @@ class Keyboard:
     def buy_journal_ua_step5_comments(self, message):
         # get user id
         user_id = message.from_user.id
-        #user_markup = telebot.types.ReplyKeyboardRemove()
+        # user_markup = telebot.types.ReplyKeyboardRemove()
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Немає коментарів')
         msg = self.bot.send_message(user_id,
@@ -756,3 +758,33 @@ class Keyboard:
         for user in users:
             self.bot.send_message(user[1], text)
             time.sleep(60)
+
+    def send_feedback_ru_step1(self, message):
+        user_id = message.from_user.id
+        user_markup = telebot.types.ReplyKeyboardRemove()
+        msg = self.bot.send_message(user_id,
+                                    'Пожалуйста, напишите свой отзыв.',
+                                    reply_markup=user_markup)
+        self.bot.register_next_step_handler(msg, self.send_feedback_ru_step2)
+
+    def send_feedback_ru_step2(self, message):
+        user_id = message.from_user.id
+        commands.create_feedback(user_id, message.text)
+        user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
+        user_markup.row('Вернуться в главное меню')
+        self.bot.send_message(user_id, 'Спасибо за ваш отзыв.', reply_markup=user_markup)
+
+    def send_feedback_ua_step1(self, message):
+        user_id = message.from_user.id
+        user_markup = telebot.types.ReplyKeyboardRemove()
+        msg = self.bot.send_message(user_id,
+                                    'Будь-ласка, напишіть свій відгук.',
+                                    reply_markup=user_markup)
+        self.bot.register_next_step_handler(msg, self.send_feedback_ua_step2)
+
+    def send_feedback_ua_step2(self, message):
+        user_id = message.from_user.id
+        commands.create_feedback(user_id, message.text)
+        user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
+        user_markup.row('Повернутися в головне меню')
+        self.bot.send_message(user_id, 'Дякуємо за ваш відгук.', reply_markup=user_markup)

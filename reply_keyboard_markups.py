@@ -221,7 +221,6 @@ class Keyboard:
         user_id = message.from_user.id
         # get basket
         basket = commands.get_basket(message)
-        print(basket)
         commands.add_payment_to_basket(message, message.text)
         card_number = 'Номер карточки ПриватБанка для оплати: 4149 4391 0621 4137 ' \
                       '\nВладелиц счета: Юдина Инна Сергеевна'

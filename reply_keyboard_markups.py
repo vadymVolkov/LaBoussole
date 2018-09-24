@@ -367,7 +367,7 @@ class Keyboard:
         user_markup.row('Підтвердити оплату')
         user_markup.row('Змінити мову')
         if basket:
-            user_markup.row('Перейти до замовлення')
+            user_markup.row('Перейти до оформлення замовлення')
             user_markup.row('Очистити кошик')
         user_markup.row('Залишити відгук про роботу бота')
         if message.from_user.id == admin[1]:

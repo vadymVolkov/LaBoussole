@@ -52,11 +52,12 @@ def add_order_to_basket(message, journal):
     user_id = message.from_user.id
     basket = db.get_basket_by_userid(user_id)
     order = 'vol: ' + str(journal[0]) + ' ' + str(journal[1]) + '; '
+    journal_price = 250
     if basket:
         basket_order = basket[1]
         basket_order = basket_order + order
         basket_price = basket[2]
-        basket_price = basket_price + 300
+        basket_price = basket_price + journal_price
         db.add_order_to_basket(user_id, basket_order)
         db.add_price_to_basket(user_id, basket_price)
 
@@ -67,6 +68,7 @@ def add_order_to_basket(message, journal):
 def add_cover_to_basket(message):
     user_id = message.from_user.id
     user = db.get_user_byid(user_id)
+    cover_price = 30
     if user[6] == 1:
         cover = 'в подарочной упаковке; '
     elif user[6] == 2:
@@ -78,7 +80,7 @@ def add_cover_to_basket(message):
     basket_order = basket_order + ' ' + cover
     db.add_order_to_basket(user_id, basket_order)
     basket_price = basket[2]
-    basket_price = basket_price + 30
+    basket_price = basket_price + cover_price
     db.add_price_to_basket(user_id, basket_price)
 
 

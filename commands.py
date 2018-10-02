@@ -52,7 +52,7 @@ def add_order_to_basket(message, journal):
     user_id = message.from_user.id
     basket = db.get_basket_by_userid(user_id)
     order = 'vol: ' + str(journal[0]) + ' ' + str(journal[1]) + '; '
-    journal_price = 250
+    journal_price = 300
     if basket:
         basket_order = basket[1]
         basket_order = basket_order + order

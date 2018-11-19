@@ -340,11 +340,13 @@ class Keyboard:
     def process_ru_photo_receive(self, message):
         # get admin
         admin = commands.get_admins(1)
+        print('this is admin ' + admin)
         # get user id
         user_id = message.from_user.id
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Вернуться в главное меню')
         photo_id = message.photo[2].file_id
+        print('this admin id' + admin[0][1])
         self.bot.send_photo(admin[0][1], photo_id)
         self.bot.send_message(admin[0][1],
                               'Пользователь с ID ' + str(user_id) + ' прислал вам фотографию квитанции об оплате',

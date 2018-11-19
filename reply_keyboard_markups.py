@@ -340,21 +340,28 @@ class Keyboard:
     def process_ru_photo_receive(self, message):
         # get admin
         admin = commands.get_admins(1)
-        print('this is admin')
-        print(admin)
+
         # get user id
         user_id = message.from_user.id
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
         user_markup.row('Вернуться в главное меню')
         photo_id = message.photo[2].file_id
-        print('admin id')
-        print(admin[0][1])
+
         self.bot.send_photo(admin[0][1], photo_id)
         self.bot.send_message(admin[0][1],
                               'Пользователь с ID ' + str(user_id) + ' прислал вам фотографию квитанции об оплате',
                               reply_markup=user_markup)
+        self.bot.send_photo(admin[1][1], photo_id)
+        self.bot.send_message(admin[1][1],
+                              'Пользователь с ID ' + str(user_id) + ' прислал вам фотографию квитанции об оплате',
+                              reply_markup=user_markup)
+        self.bot.send_photo(admin[2][1], photo_id)
+        self.bot.send_message(admin[2][1],
+                              'Пользователь с ID ' + str(user_id) + ' прислал вам фотографию квитанции об оплате',
+                              reply_markup=user_markup)
         self.bot.send_message(user_id, 'Спасибо, мы получили вашу квитанцию. '
                                        'Ожидайте номер экспресс-накладной Новой почты.', reply_markup=user_markup)
+
 
     def main_menu_ua(self, message, user, admin):
         # get user id
@@ -691,6 +698,10 @@ class Keyboard:
                               reply_markup=user_markup)
         self.bot.send_photo(admin[1][1], photo_id)
         self.bot.send_message(admin[1][1],
+                              'Пользователь с ID ' + str(user_id) + ' прислал вам фотографию квитанции об оплате',
+                              reply_markup=user_markup)
+        self.bot.send_photo(admin[2][1], photo_id)
+        self.bot.send_message(admin[2][1],
                               'Пользователь с ID ' + str(user_id) + ' прислал вам фотографию квитанции об оплате',
                               reply_markup=user_markup)
         self.bot.send_message(user_id, 'Дякуємо, ми отримали вашу квитанцію. '

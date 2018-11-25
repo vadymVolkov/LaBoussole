@@ -5,7 +5,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import datetime
 from config import config
-import mysql as my
+import mysql
 
 ORDER_KEY = config.order_key
 
@@ -94,13 +94,10 @@ def add_comment_to_basket(message, comment):
     user_id = message.from_user.id
     try:
         db.add_comment_to_basket(user_id, comment)
-    except my.Error as e:
+    except mysql.connector.errors.DatabaseError as e:
         print(e)
-        comment2 = clean_basket(comment)
+        comment2 = clean_comment(comment)
         db.add_comment_to_basket(user_id, comment2)
-
-
-
 
 
 def add_delivery_date_to_basket(message, date):
@@ -335,6 +332,7 @@ def get_journals_from_docks():
     result = result[1:]
     return result
 
+
 def create_feedback(user_id, feedback):
     # use creds to create a client to interact with the Google Drive API
     scope = ['https://spreadsheets.google.com/feeds']
@@ -344,8 +342,6 @@ def create_feedback(user_id, feedback):
     sheet = client.open_by_key(ORDER_KEY).get_worksheet(2)
     data = [user_id, feedback]
     sheet.append_row(data)
-
-
 
 
 def update_journal_db():
@@ -449,7 +445,7 @@ def check_user_id_for_admin_rights(message):
     return "not admin"
 
 
-def clean_comment (comment):
+def clean_comment(comment):
     reg = re.compile('[^a-zA-Z ]')
     result = reg.sub('', comment)
     return result

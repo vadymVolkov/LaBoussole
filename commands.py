@@ -5,6 +5,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import datetime
 from config import config
+import mysql as my
 
 ORDER_KEY = config.order_key
 
@@ -91,7 +92,15 @@ def add_payment_to_basket(message, payment):
 
 def add_comment_to_basket(message, comment):
     user_id = message.from_user.id
-    db.add_comment_to_basket(user_id, comment)
+    try:
+        db.add_comment_to_basket(user_id, comment)
+    except my.Error as e:
+        print(e)
+        comment2 = clean_basket(comment)
+        db.add_comment_to_basket(user_id, comment2)
+
+
+
 
 
 def add_delivery_date_to_basket(message, date):
@@ -438,3 +447,9 @@ def check_user_id_for_admin_rights(message):
         if str(admin[1]) == str(user_id):
             return admin
     return "not admin"
+
+
+def clean_comment (comment):
+    reg = re.compile('[^a-zA-Z ]')
+    result = reg.sub('', comment)
+    return result

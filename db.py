@@ -127,6 +127,7 @@ def add_comment_to_basket(user_id, comment):
     except mysql.connector.errors.DatabaseError as e:
         print(e)
         comment2 = commands.clean_comment(comment)
+        print(comment2)
         cursor.execute(sql, (comment2, user_id, False,))
     conn.commit()
     conn.close()

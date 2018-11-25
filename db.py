@@ -1,5 +1,7 @@
 import mysql.connector
+import mysql
 from config import config
+from commands import clean_comment
 
 
 def connection():
@@ -120,7 +122,12 @@ def add_comment_to_basket(user_id, comment):
     conn = connection()
     cursor = conn.cursor()
     sql = "update basket set comment = %s where user_id = %s and achieve = %s"
-    cursor.execute(sql, (comment, user_id, False,))
+    try:
+        cursor.execute(sql, (comment, user_id, False,))
+    except mysql.connector.errors.DatabaseError as e:
+        print(e)
+        comment2 = clean_comment(comment)
+        cursor.execute(sql, (comment2, user_id, False,))
     conn.commit()
     conn.close()
 

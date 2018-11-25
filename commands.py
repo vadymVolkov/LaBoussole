@@ -5,7 +5,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import datetime
 from config import config
-import mysql
+
 
 ORDER_KEY = config.order_key
 
@@ -92,12 +92,9 @@ def add_payment_to_basket(message, payment):
 
 def add_comment_to_basket(message, comment):
     user_id = message.from_user.id
-    try:
-        db.add_comment_to_basket(user_id, comment)
-    except mysql.connector.errors.DatabaseError as e:
-        print(e)
-        comment2 = clean_comment(comment)
-        db.add_comment_to_basket(user_id, comment2)
+    db.add_comment_to_basket(user_id, comment)
+
+
 
 
 def add_delivery_date_to_basket(message, date):

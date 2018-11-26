@@ -301,3 +301,20 @@ def get_users_id():
     conn.close()
     return users_id
 
+def get_all_orders_from_basket():
+    conn = connection()
+    cursor = conn.cursor()
+    sql = 'select * from basket'
+    cursor.execute(sql)
+    baskets = cursor.fetchall()
+    conn.close()
+    return baskets
+
+def get_all_users():
+    conn = connection()
+    cursor = conn.cursor()
+    sql = 'select * from users'
+    cursor.execute(sql)
+    users = cursor.fetchall()
+    conn.close()
+    return users

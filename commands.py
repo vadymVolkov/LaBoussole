@@ -5,7 +5,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import datetime
 from config import config
-
+import xlsxwriter
 
 ORDER_KEY = config.order_key
 
@@ -93,8 +93,6 @@ def add_payment_to_basket(message, payment):
 def add_comment_to_basket(message, comment):
     user_id = message.from_user.id
     db.add_comment_to_basket(user_id, comment)
-
-
 
 
 def add_delivery_date_to_basket(message, date):
@@ -446,3 +444,22 @@ def clean_comment(comment):
     reg = re.compile('[^a-zA-Z ]')
     result = reg.sub('', comment)
     return result
+
+
+def create_report(name, data):
+    workbook = xlsxwriter.Workbook(str(name) + '.xlsx')
+    worksheet = workbook.add_worksheet()
+    row = 1
+    for d in data:
+        col = 0
+        for p in d:
+            worksheet.write(row, col, p)
+            col += 1
+        row += 1
+    workbook.close()
+
+def create_all_reports():
+    orders = db.get_all_orders_from_basket()
+    create_report('orders', orders)
+    users = db.get_all_users()
+    create_report('users', users)

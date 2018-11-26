@@ -715,7 +715,9 @@ class Keyboard:
         user_markup.row('Разослать оповещения')
         user_markup.row('Отправить всем пользователям сообщение')
         user_markup.row('Отправить всем пользователям сообщение с интервалом в 1 минуту')
+        user_markup.row('Запросить отчет')
         user_markup.row('/start')
+
         if user_id == admin[1]:
             msg = self.bot.send_message(user_id, 'Привет админ \n'
                                                  'Выбери команду:', reply_markup=user_markup)
@@ -760,6 +762,16 @@ class Keyboard:
                                             ' вы хотите отправить всем пользователям с интервалом в 1 минуту',
                                             reply_markup=user_markup)
                 self.bot.register_next_step_handler(msg, self.send_message_all_users)
+            elif message.text == 'Запросить отчет':
+                try:
+                    commands.create_all_reports()
+                    doc1 = open('orders.xlsx', 'rb')
+                    doc2 = open('users.xlsx', 'rb')
+                    self.bot.send_document(user_id, doc1)
+                    self.bot.send_document(user_id, doc2)
+                    self.bot.send_message(user_id, "Отчет отправлен", reply_markup=user_markup)
+                except:
+                    self.bot.send_message(user_id, "Упс, произошла ошибка.", reply_markup=user_markup)
 
     def send_message_all_users(self, message):
         text = message.text

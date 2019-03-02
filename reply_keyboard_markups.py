@@ -362,6 +362,7 @@ class Keyboard:
         self.bot.send_message(user_id, 'Спасибо, мы получили вашу квитанцию. '
                                        'Ожидайте номер экспресс-накладной Новой почты.', reply_markup=user_markup)
 
+
     def main_menu_ua(self, message, user, admin):
         # get user id
         user_id = message.from_user.id
@@ -797,7 +798,7 @@ class Keyboard:
         users = commands.get_all_users_id()
         photo_id = message.photo[2].file_id
         for user in users:
-            self.bot.send_message(user[1], photo_id)
+            self.bot.send_photo(user[1], photo_id)
             time.sleep(60)
 
     def send_feedback_ru_step1(self, message):

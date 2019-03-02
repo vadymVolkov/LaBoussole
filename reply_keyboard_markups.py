@@ -715,6 +715,7 @@ class Keyboard:
         user_markup.row('Разослать оповещения')
         user_markup.row('Отправить всем пользователям сообщение')
         user_markup.row('Отправить всем пользователям сообщение с интервалом в 1 минуту')
+        user_markup.row('Отправить всем пользователям фото с интервалом в 1 минуту')
         user_markup.row('Запросить отчет')
         user_markup.row('/start')
 
@@ -761,7 +762,13 @@ class Keyboard:
                                             'Напишите пожалуйста сообщение которое'
                                             ' вы хотите отправить всем пользователям с интервалом в 1 минуту',
                                             reply_markup=user_markup)
-                self.bot.register_next_step_handler(msg, self.send_message_all_users)
+                self.bot.register_next_step_handler(msg, self.send_message_all_users_1_min_interval)
+            elif message.text == 'Отправить всем пользователям фото с интервалом в 1 минуту':
+                msg = self.bot.send_message(user_id,
+                                            'Отправте фото которое'
+                                            ' вы хотите отправить всем пользователям с интервалом в 1 минуту',
+                                            reply_markup=user_markup)
+                self.bot.register_next_step_handler(msg, self.send_photo_all_users_1_min_interval)
             elif message.text == 'Запросить отчет':
                 try:
                     commands.create_all_reports()
@@ -784,6 +791,17 @@ class Keyboard:
         text = message.text
         for user in users:
             self.bot.send_message(user[1], text)
+            time.sleep(60)
+
+    def send_photo_all_users_1_min_interval(self, message):
+        admin = commands.get_admins(1)
+        users = commands.get_all_users_id()
+        photo_id = message.photo[2].file_id
+        for user in users:
+            self.bot.send_photo(admin[0][1], photo_id)
+            self.bot.send_photo(admin[1][1], photo_id)
+            self.bot.send_photo(admin[2][1], photo_id)
+            #self.bot.send_message(user[1], text)
             time.sleep(60)
 
     def send_feedback_ru_step1(self, message):

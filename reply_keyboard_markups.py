@@ -733,11 +733,10 @@ class Keyboard:
         user_id = message.from_user.id
         if user_id == admins[1]:
             if message.text == 'Обновить базу данных журналов':
-                try:
-                    commands.update_journal_db()
-                    self.bot.send_message(user_id, "База успешно обновлена", reply_markup=user_markup)
-                except:
-                    self.bot.send_message(user_id, "Упс, произошла ошибка.", reply_markup=user_markup)
+
+                commands.update_journal_db()
+                self.bot.send_message(user_id, "База успешно обновлена", reply_markup=user_markup)
+
             elif message.text == 'Обновить базу данных оповещений':
                 try:
                     commands.update_orders()

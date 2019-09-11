@@ -1,6 +1,6 @@
 from oauth2client.service_account import ServiceAccountCredentials
 import gspread
-
+ORDER_KEY = config.order_key
 def get_journals_from_docks():
     # use creds to create a client to interact with the Google Drive API
     scope = ['https://spreadsheets.google.com/feeds']

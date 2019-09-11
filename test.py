@@ -8,4 +8,4 @@ def get_journals_from_docks():
     journal_in_db = db.get_journal_by_name('Херсон')
     return journal_in_db
 a = get_journals_from_docks()
-print(a)
+print(a[0])

@@ -12,8 +12,9 @@ def get_journals_from_docks():
     sheet = client.open_by_key(ORDER_KEY).get_worksheet(1)
     result = sheet.get_all_values()
     result = result[1:]
-    result = result[0][1].encode('utf-8')
-    return result
+    result1 = result[0][1]
+    result1 = result1.encode('ascii', 'ignore').decode('ascii')
+    return result1
 
 a = get_journals_from_docks()
 print(a)

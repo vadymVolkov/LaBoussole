@@ -340,7 +340,7 @@ def create_feedback(user_id, feedback):
 
 
 def update_journal_db():
-    journal_list = get_journals_from_docks()
+    journal_list = 'test'
     print(journal_list)
 
 

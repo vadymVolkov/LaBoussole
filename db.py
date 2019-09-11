@@ -76,8 +76,11 @@ def add_new_journal(vol, name, store, price):
 def update_journal_by_name(name, store, price):
     conn = connection()
     cursor = conn.cursor()
-    sql = "update journals set store = %s, price = $s where name=%s"
-    cursor.execute(sql, (store, price, name,))
+    sql = "update journals set store = %s where name=%s"
+    cursor.execute(sql, (store, name,))
+    conn.commit()
+    sql = "update journals set price = %s where name=%s"
+    cursor.execute(sql, (price, name,))
     conn.commit()
     conn.close()
 

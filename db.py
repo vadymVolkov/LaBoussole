@@ -57,7 +57,7 @@ def get_journals():
 def get_journal_by_name(name):
     conn = connection()
     cursor = conn.cursor()
-    sql = "select vol, name, store from journals where name = %s"
+    sql = "select vol, name, store, price from journals where name = %s"
     cursor.execute(sql, (name,))
     journal = cursor.fetchone()
     conn.close()

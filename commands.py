@@ -345,11 +345,12 @@ def update_journal_db():
         vol = journal[0]
         name = journal[1]
         store = journal[2]
+        price = journal[3]
         journal_in_db = db.get_journal_by_name(name)
         if journal_in_db:
-            db.update_journal_by_name(name, store)
+            db.update_journal_by_name(name, store, price)
         else:
-            db.add_new_journal(vol, name, store)
+            db.add_new_journal(vol, name, store, price)
 
 
 def get_orders_from_google():

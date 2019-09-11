@@ -64,20 +64,20 @@ def get_journal_by_name(name):
     return journal
 
 
-def add_new_journal(vol, name, store):
+def add_new_journal(vol, name, store, price):
     conn = connection()
     cursor = conn.cursor()
-    sql = "insert into journals (vol, name, store) VALUES (%s, %s, %s)"
-    cursor.execute(sql, (vol, name, store,))
+    sql = "insert into journals (vol, name, store, price) VALUES (%s, %s, %s, %s)"
+    cursor.execute(sql, (vol, name, store, price))
     conn.commit()
     conn.close()
 
 
-def update_journal_by_name(name, store):
+def update_journal_by_name(name, store, price):
     conn = connection()
     cursor = conn.cursor()
-    sql = "update journals set store = %s where name=%s"
-    cursor.execute(sql, (store, name,))
+    sql = "update journals set store = %s and price = $s where name=%s"
+    cursor.execute(sql, (store, price, name,))
     conn.commit()
     conn.close()
 

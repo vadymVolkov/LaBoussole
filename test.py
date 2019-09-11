@@ -1,5 +1,6 @@
 from oauth2client.service_account import ServiceAccountCredentials
 import gspread
+
 def get_journals_from_docks():
     # use creds to create a client to interact with the Google Drive API
     scope = ['https://spreadsheets.google.com/feeds']
@@ -12,3 +13,6 @@ def get_journals_from_docks():
     print(result)
     result = result[1:]
     return result
+
+a = get_journals_from_docks()
+print(a)

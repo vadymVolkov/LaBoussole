@@ -323,9 +323,7 @@ def get_journals_from_docks():
     client = gspread.authorize(creds)
     # Find a workbook by key and open the first sheet
     sheet = client.open_by_key(ORDER_KEY).get_worksheet(1)
-    print(sheet)
     result = sheet.get_all_values()
-    print(result)
     result = result[1:]
     return result
 

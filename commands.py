@@ -343,7 +343,6 @@ def create_feedback(user_id, feedback):
 
 def update_journal_db():
     journal_list = get_journals_from_docks()
-    print(journal_list)
     for journal in journal_list:
         vol = journal[0]
         name = journal[1]

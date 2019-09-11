@@ -88,7 +88,7 @@ def update_journal_by_name(name, store, price):
 def add_new_order_to_basket(user_id, order, price):
     conn = connection()
     cursor = conn.cursor()
-    sql = 'insert into basket (user_id, `order`, price') values (%s,%s,%s)'
+    sql = 'insert into basket (user_id, `order`, price) values (%s,%s,%s)'
     cursor.execute(sql, (user_id, order, price,))
     conn.commit()
     conn.close()

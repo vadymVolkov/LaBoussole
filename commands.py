@@ -54,9 +54,7 @@ def add_order_to_basket(message, journal):
     basket = db.get_basket_by_userid(user_id)
     order = 'vol: ' + str(journal[0]) + ' ' + str(journal[1]) + '; '
     journal_full = db.get_journal_by_name(journal[1])
-    journal_price_test = journal_full[3]
-    print(journal_price_test)
-    journal_price = 300
+    journal_price = journal_full[3]
     if basket:
         basket_order = basket[1]
         basket_order = basket_order + order
@@ -66,7 +64,7 @@ def add_order_to_basket(message, journal):
         db.add_price_to_basket(user_id, basket_price)
 
     elif not basket:
-        db.add_new_order_to_basket(user_id, order)
+        db.add_new_order_to_basket(user_id, order, journal_price)
 
 
 def add_cover_to_basket(message):
